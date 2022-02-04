@@ -1,0 +1,47 @@
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+   static class MeetingStruct {
+        int start;
+        int end;
+        int pos;
+        public MeetingStruct(int start, int end, int pos) {
+            this.start = start;
+            this.end = end;
+            this.pos = pos;
+        }
+    }
+    
+   static class SortByEndTime implements Comparator<MeetingStruct> {
+        public int compare(MeetingStruct a, MeetingStruct b) {
+            if(a.end < b.end)
+            return -1;
+            else if(a.end > b.end)
+            return 1;
+            else if(a.pos < b.pos)
+            return -1;
+            else return 1;
+        }
+    }
+    
+    public static int maxMeetings(int start[], int end[], int n)
+    {   ArrayList<MeetingStruct> arr = new ArrayList<>();
+        for(int i = 0;i<n;i++) {
+            arr.add(new MeetingStruct(start[i], end[i], i));
+        }
+        Collections.sort(arr, new SortByEndTime());
+        
+        int count = 1;
+        int last = arr.get(0).end;
+        
+        for(int i=0;i<n;i++) {
+            if(arr.get(i).start > last)
+            {
+                last = arr.get(i).end;
+                count++;
+            }
+        }
+       return count;
+    }
+}
