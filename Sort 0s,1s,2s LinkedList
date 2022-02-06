@@ -1,0 +1,49 @@
+public class Solution {
+	public static Node<Integer> sortList(Node<Integer> head) {
+        // Write your code here
+        Node<Integer> head0 = new Node(0);
+        Node<Integer> head1 = new Node(1);
+        Node<Integer> head2 = new Node(2);
+        Node<Integer> tail0 = head0;
+        Node<Integer> tail1 = head1;
+        Node<Integer> tail2 = head2;
+        Node<Integer> curr = head;
+        while(curr!=null) {
+            if(curr.data == 0) {
+                tail0.next = curr;
+                curr = curr.next;
+                tail0 = tail0.next;
+                tail0.next = null;
+            }  
+            else if(curr.data == 1) {
+                tail1.next = curr;
+                curr = curr.next;
+                tail1 = tail1.next;
+                tail1.next = null;
+            }
+            else if(curr.data == 2) {
+                tail2.next = curr;
+                curr = curr.next;
+                tail2 = tail2.next;
+                tail2.next = null;
+            }
+        }
+            head0 = head0.next;
+            head1 = head1.next;
+            head2 = head2.next;
+            if(head0!=null) {
+                if(head1!=null) {
+                    tail0.next = head1;
+                    tail1.next = head2;
+                } else tail0.next = head2;
+                return head0;
+            }
+            else {
+                 if(head1!=null) {
+                    tail1.next = head2;
+                    return head1;
+                } 
+                else return head2;
+                }                   
+	}
+}
