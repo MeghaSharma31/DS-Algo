@@ -1,0 +1,46 @@
+For even circular list -->
+public class Solution {
+	
+	public static void splitCircularList(LinkedListNode<Integer> head) {
+		
+        // Write your code here	
+        LinkedListNode<Integer> fast = head;
+        LinkedListNode<Integer> slow = head;
+        
+        while(fast.next.next!=head) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        LinkedListNode<Integer> head1 = head;
+        LinkedListNode<Integer> head2 = slow.next;
+            fast.next.next = head2;
+        slow.next = head;
+        
+	}
+
+}
+
+For both even and odd -->
+public class Solution {
+	
+	public static void splitCircularList(LinkedListNode<Integer> head) {
+		
+        // Write your code here	
+        LinkedListNode<Integer> fast = head;
+        LinkedListNode<Integer> slow = head;
+        
+        while(fast.next!=head || fast.next.next!=head) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        LinkedListNode<Integer> head1 = head;
+        LinkedListNode<Integer> head2 = slow.next;
+         if(fast.next == head) 
+             fast.next = head2;
+        else 
+            fast.next.next = head2;
+        slow.next = head;
+        
+	}
+
+}
