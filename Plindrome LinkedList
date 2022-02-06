@@ -1,0 +1,37 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        int size = 0;
+        ListNode curr = head;
+        while(curr!=null) {
+            size++;
+            curr = curr.next;
+        }
+        System.out.println(size);
+        int[] arr = new int[size];
+        curr = head;
+        int i = 0;
+        while(curr!=null) {
+            arr[i++] = curr.val;
+            curr = curr.next;
+        }
+        int s = 0;
+        int e = size - 1;
+        while(s<e) {
+            if(arr[s] != arr[e])
+                return false;
+            s++;
+            e--;
+        }  
+        return true;
+    }
+}
