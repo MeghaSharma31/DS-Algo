@@ -1,0 +1,55 @@
+class Solution
+{
+    //Function to find the maximum profit and the number of jobs done.
+    int[] JobScheduling(Job arr[], int n)
+    {
+        // Your code here
+        Arrays.sort(arr,0,arr.length,new SortbyProfit());
+        int maxDeadline = 1;
+        for(int i = 0;i<arr.length;i++) {
+      //      System.out.println("arr[i].id=" + arr[i].id + " arr[i].deadline=" + arr[i].deadline + " arr[i].profit=" + arr[i].profit);
+            maxDeadline = Math.max(maxDeadline,arr[i].deadline);
+        }
+      //  System.out.println("maxDeadline" + maxDeadline);
+        
+        int[] res = new int[2];
+        int countJob = 0;
+        int maxProfit = 0;
+        int[] dayarray = new int[maxDeadline];
+        for(int i = 0;i<maxDeadline;i++)
+        {
+            dayarray[i] = -1;
+        }
+        for(int i = 0;i<arr.length;i++) {
+          for(int j = arr[i].deadline-1;j>=0;j--) {
+              if(dayarray[j] == -1) {
+                  countJob++;
+                  dayarray[j] = arr[i].id;
+                  maxProfit+=arr[i].profit;
+                  break;
+              }
+          }
+            
+        }
+        res[0] = countJob;
+        res[1] = maxProfit;
+        return res;
+        
+    }
+    
+    
+}
+
+class SortbyProfit implements Comparator<Job> {
+    public int compare(Job j1, Job j2) {
+        if(j1.profit<j2.profit)
+        return 1;
+        else if(j1.profit>j2.profit)
+        return -1;
+        else if(j1.deadline<j2.deadline)
+        return 1;
+        else return -1;
+    }
+
+
+}
