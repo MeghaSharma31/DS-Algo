@@ -1,0 +1,39 @@
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if(list1 == null)
+            return list2;
+        if(list2 == null)
+            return list1;
+        if(list1.val < list2.val)
+            return mergehelper(list1,list2);
+        else return mergehelper(list2,list1);
+     }
+    
+    public ListNode mergehelper(ListNode l1, ListNode l2) {
+        ListNode pre = l1;
+        ListNode curr = l1.next;
+        ListNode pointer = l2;
+        while(curr!=null && pointer!=null ) {
+           
+                 if(pre.val <= pointer.val && curr.val >= pointer.val) 
+                 {
+                     l2 = l2.next;
+                     pointer.next = null;
+                     pre.next = pointer;
+                     pointer.next = curr;
+                     pre = pointer;
+                 } else {
+                     pre = curr;
+                    curr = curr.next; 
+                 }
+                 
+                pointer = l2;
+        }
+        if(pointer!=null) {
+            pre.next = pointer;
+        }
+            
+        return l1;
+        }
+    
+}
