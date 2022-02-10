@@ -1,0 +1,54 @@
+class Solution{
+    //Function to add two numbers represented by linked list.
+    static Node addTwoLists(Node first, Node second){
+        // code here
+        // return head of sum list
+        Node head = addTwoNumbers(first,second);
+        return reverse(head);
+    }
+    
+    static Node addTwoNumbers(Node l1, Node l2) {
+        int sum = 0;
+        int carry = 0;
+        //To start counting from right side like we do in simple addition
+        // we need to reverse the lists , thus addition can stat from ones, tens, hundres,...
+        Node curr1 = reverse(l1);
+        Node curr2 = reverse(l2);
+        Node dummy = new Node(1111111); //random number for dummy node
+        Node curr = dummy;
+        while(curr1!=null || curr2!=null || carry!=0) {
+            int val1 = 0;
+            int val2 = 0;
+            if(curr1!=null) {
+                val1 = curr1.data;
+                curr1 = curr1.next;
+            }
+            if(curr2!=null)
+            {
+                val2 = curr2.data;
+                curr2 = curr2.next;
+            }
+            sum = val1 + val2 + carry;
+            carry = sum/10;
+            Node node = new Node(sum%10);
+            curr.next = node;
+            curr = curr.next;
+        }
+        dummy = dummy.next;
+        return dummy;
+    }
+    
+    static Node reverse(Node head) {
+        Node forward = null;
+        Node pre = null;
+        Node curr = head;
+        while(curr!=null) {
+            forward = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = forward;
+        }
+        return pre;
+    }
+    
+}
