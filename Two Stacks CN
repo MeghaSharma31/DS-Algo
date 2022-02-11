@@ -1,0 +1,65 @@
+public class TwoStack {
+	int[] arr;
+    int top1; //for stack 1
+    int top2; // for stack 2
+    int size; //size of array
+   
+	// Initialize TwoStack.
+	public TwoStack(int s) {
+		// Write your code here
+        this.size = s;
+        top1 = -1; 
+        top2 = size;
+        arr = new int[s];
+
+	}
+
+	// Push in stack 1.
+	public void push1(int num) {
+        //pushing elements in stack 1 from left to right
+		// Write your code here
+        if(top2-top1 >1) // if there is a space of one element between the two stacks
+        {  top1++; // increment the top1 first then place element
+            arr[top1] = num;
+        }
+
+	}
+
+	// Push in stack 2.
+	public void push2(int num) {
+		// Write your code here
+        // Pushing elements in stack2 from right to left
+        if(top2-top1>1) {
+            top2--; //decrement the top2 first then place element
+            arr[top2] = num;
+        }
+
+	}
+
+	// Pop from stack 1 and return popped element.
+	public int pop1() {
+		// Write your code here
+        int ans = -1;
+        if(top1>-1) //check if there is element in stack 1
+        {
+            ans = arr[top1];
+            top1--;
+        }
+        return ans;    
+
+	}
+
+	// Pop from stack 2 and return popped element.
+	public int pop2() {
+		// Write your code here
+          int ans = -1;
+        if(top2<size) //check if element is there in stack 2
+        {
+            ans = arr[top2];
+            top2++;
+        }
+        return ans;   
+
+	}
+
+}
