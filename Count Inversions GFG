@@ -1,0 +1,55 @@
+class Solution
+{ 
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    //Function to count inversions in the array.
+    static long inversionCount(long arr[], long N)
+    {
+        long ans = 0;
+        ans = mergeSort(arr,N);
+        return ans;// Your Code Here
+        
+    }
+    static long mergeSort(long arr[] , long N) {
+        long ans = 0;
+        if(N == 0 || N == 1)
+        return ans;
+        int s = 0;
+        int e = (int)N-1;
+        int mid = s+(e-s)/2;
+        long[] s1 = new long[mid - s + 1];
+        long[] s2 = new long[e-mid];
+        for(int i = 0; i<=mid;i++) 
+            s1[i] = arr[i];
+        for(int i = mid +1;i<=e;i++)
+            s2[i- (mid+1)] = arr[i];
+       ans+=mergeSort(s1,s1.length);
+       ans+=mergeSort(s2,s2.length);
+       ans+=merge(s1,s2,arr);
+       return ans;
+    }
+    
+    static long merge(long[] s1, long[] s2, long[] arr) {
+        long count = 0;
+        int l = 0;
+        int r = 0;
+        int i = 0;
+        while(l<s1.length && r<s2.length) {
+            if(s1[l]<=s2[r])
+            arr[i++] = s1[l++];
+            else {
+                count = count + (long)(s1.length - l); //this means, if the element in the right array is smaller than the lth element on the left array...
+               // System.out.println("ans" + ans);//...that certainly means it is smaller than all the elements right to lth index in the left array since array is sorted...
+                arr[i++] = s2[r++];                 //... and so the inversions will be left array's length - index l 
+            }
+        }
+        while(l<s1.length) {
+            arr[i++] = s1[l++];
+        }
+        while(r<s2.length) {
+            arr[i++] = s2[r++];
+        }
+        return count;
+    }
+   
+}
