@@ -1,0 +1,62 @@
+class Solution {
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+      
+        int[][] visited = new int[n][n];
+        ArrayList<String> list = new ArrayList<>();
+          if(m[0][0] == 0)
+            return list;
+        String str = "";
+        pathHelper(m,0,0,visited,str,n,list);
+        return list;
+        
+    }
+    
+    public static void pathHelper(int[][] m, int x, int y, int[][] visited, String str, int n,ArrayList<String> list) {
+        if(x == n-1 && y == n-1)
+        {  // System.out.println("str is " + str);
+            list.add(str);
+            return;
+        }
+        if(x<0 || y<0) return;
+        if(x>n-1 || y>n-1) return;
+        visited[x][y] = 1;
+        if((x+1 >= 0 && y>=0) && (x+1<=n-1 && y<=n-1)) 
+        {   if((m[x+1][y] == 1) && (visited[x+1][y] == 0)) {
+           // str = str + "D";  // ** this is wrong**** //this would add up the if condition..
+           //..strings also thus if at any step we take more than..
+           //.. one direction then the last direction's letter will also be added up..
+           //..thus pass the original string in the recurssive function itself..
+            pathHelper(m,x+1,y,visited,str + "D",n,list);
+            }
+            
+        }
+           if((x >= 0 && y-1>=0) && (x<=n-1 && y-1<=n-1)) 
+        {   if((m[x][y-1] == 1) && (visited[x][y-1] == 0)) {
+           // str = str + "L";
+            pathHelper(m,x,y-1,visited,str + "L",n,list);
+            visited[x][y-1] = 0;
+            }
+            
+        }
+        if((x >= 0 && y+1>=0) && (x<=n-1 && y+1<=n-1)) 
+        {   if((m[x][y+1] == 1) && (visited[x][y+1] == 0)) {
+          //  str = str + "R";
+            pathHelper(m,x,y+1,visited,str + "R",n,list);
+            }
+            
+        }
+      
+         if((x-1 >= 0 && y>=0) && (x-1<=n-1 && y<=n-1)) 
+        {   if((m[x-1][y] == 1) && (visited[x-1][y] == 0)) {
+           // str = str + "U";
+            pathHelper(m,x-1,y,visited,str + "U",n,list);
+            }
+            
+        }
+        visited[x][y]= 0;
+        
+        
+                
+    }
+}
