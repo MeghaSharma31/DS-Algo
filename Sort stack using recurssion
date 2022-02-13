@@ -1,0 +1,21 @@
+import java.util.*;
+public class Solution {
+
+	public static void sortStack(Stack<Integer> stack) {
+		// Write your code here.
+        if(stack.isEmpty())
+            return;
+        int x = stack.pop();   //pop out top element and call recurssion on rest of the stacl
+        sortStack(stack);
+        pushInSortedWay(stack,x); //while coming back, put the element popped(x) in sorted order inside the stack.
+	}
+    public static void pushInSortedWay(Stack<Integer> stack, int num) {
+        if(stack.isEmpty() || num>=stack.peek())  //only when stack is empty of the number is greater or equal to top element you should push the element in stack and return
+        {  stack.push(num);
+         	return;
+        }
+        int x = stack.pop();  // for all other cases pop and call recurssion to do the job
+        pushInSortedWay(stack,num);
+        stack.push(x);
+      	}
+}
