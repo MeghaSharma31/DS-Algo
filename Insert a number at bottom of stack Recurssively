@@ -1,0 +1,18 @@
+import java.util.*;
+public class Solution 
+{
+  public static Stack<Integer> pushAtBottom(Stack <Integer> myStack, int x) 
+  {
+    // Write your code here
+      if(myStack.isEmpty())
+      {
+          myStack.push(x);
+          return myStack;
+      }
+      
+      int m = myStack.pop();
+      pushAtBottom(myStack,x);
+      myStack.push(m);
+      return myStack;
+  }
+}
