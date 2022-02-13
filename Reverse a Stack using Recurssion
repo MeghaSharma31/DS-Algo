@@ -1,0 +1,31 @@
+Logic : We have done how to insert an element at bottom of stack. 
+We will apply the induction principle of recussion here, let's say stack is 1,2,3,4,5 we will assume the we will reverse only 5(take it to bottom) and 1,2,3,4 will be reversed by recursion
+We ae going to use InsertAtBottom logic also
+
+import java.util.Stack;
+
+public class Solution {
+    
+	public static void reverseStack(Stack<Integer> stack) {
+		// write your code here
+        if(stack.isEmpty())
+            return;
+        
+        int x = stack.pop();
+        reverseStack(stack);   //we will assume the recurssion will reverse rest of our array
+        insertAtBottom(stack,x); //this will keep on adding elements present at top of original stack to its bottom thus reversing it.
+        
+		
+	}
+    
+    public static void insertAtBottom(Stack<Integer> stack, int num) {
+        if(stack.isEmpty())
+        {
+            stack.push(num);
+            return;
+        }
+        int x = stack.pop();
+        insertAtBottom(stack,num);
+        stack.push(x);
+    }
+}
