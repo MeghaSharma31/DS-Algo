@@ -1,0 +1,13 @@
+class Solution {
+    public int minSwaps(String s) {
+        int extraClosingBrackets = 0;   //keeps track of extra closing bracket at a time
+        int maxExtraClosingBracketsAtAnyTime = 0;  //keeps track of maximum extra closing brackets at any point of time
+        for(int i = 0;i<s.length();i++) {
+            if(s.charAt(i) == '[')   
+                extraClosingBrackets--;  // if bracket is open it means it can nullify one extra closing bracket that has come before thus we do minus 
+            else extraClosingBrackets++;
+            maxExtraClosingBracketsAtAnyTime = Math.max(maxExtraClosingBracketsAtAnyTime,extraClosingBrackets);  
+        }
+      return (maxExtraClosingBracketsAtAnyTime + 1)/2;   // one swap can nullify two extra closing brackets thus this formula
+    }
+}
