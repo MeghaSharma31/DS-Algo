@@ -1,0 +1,30 @@
+import java.util.*;
+
+//Logic is to see if there is any operator between opening and closing brackets
+// no need to concern with letters/operands only check if operators are there because (a + (b)) --> (b) this brackets are redundant.
+public class Solution 
+{
+    public static boolean findRedundantBrackets(String s) 
+    {
+        // Write your code here.
+        Stack<Character> stack = new Stack<>();
+        int count = 0;
+        for(int i = 0;i<s.length();i++) {
+            if(s.charAt(i) == '(' || s.charAt(i) == '*' || s.charAt(i) == '/'
+              || s.charAt(i) == '+' || s.charAt(i) == '-') {
+                stack.push(s.charAt(i));
+            } else if(s.charAt(i) == ')') {   // if you find any operator before closing bracket then increase count and keep poping 
+                count = 0;
+                while(stack.peek()!='(') {
+                    stack.pop();
+                    count++;
+                }
+                stack.pop(); // this pops the open bracket which is before the closing bracket
+                if(count == 0)    // count will be zero if there are no operators between opening and closing bracket that means they are redundant brackets.
+                    return true;
+            }
+        }
+        
+        return false;  // meaning count is not 0 and is >0 so there are no redundant brackets
+    }
+}
