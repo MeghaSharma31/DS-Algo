@@ -1,0 +1,34 @@
+import java.util.*;
+public class Solution {
+    public static int findMinimumCost(String str) {
+		// Write your code here
+        if(str.length()%2!=0)
+            return -1;
+        int a = 0,b=0;
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0;i<str.length();i++) {
+            if(str.charAt(i) == '}')
+            {
+                if(!stack.isEmpty()) {
+                    if(stack.peek() == '{')
+                        stack.pop();
+                    else stack.push(str.charAt(i));
+                } else stack.push(str.charAt(i));
+            }
+            else stack.push(str.charAt(i));
+            
+        }
+        if(stack.isEmpty())
+            return 0;
+        else {
+            while(!stack.isEmpty())
+            {
+                if(stack.pop() == '{')
+                    a++;
+                else b++;
+            }
+        }
+        
+        return (a+1)/2 + (b+1)/2;    
+    }
+}
