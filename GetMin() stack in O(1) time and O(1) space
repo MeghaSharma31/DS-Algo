@@ -1,0 +1,76 @@
+public class SpecialStack {
+	// Define the data members.
+	int[] arr = new int[100];
+    int top = -1;
+   	int size = 0; 
+    int min = Integer.MAX_VALUE;
+   
+	/*----------------- Public Functions of SpecialStack -----------------*/
+
+	void push(int data) {
+        // Implement the push() function.
+		top++;
+        if(top == 0) {
+            min = Math.min(min, data);
+            arr[top] = data;
+            size++;
+        } else {
+        if(top!=arr.length)
+        {	if(data>min) {
+            arr[top] = data;
+        	}
+         else {
+             int val = 2*data-min;
+             arr[top] = val;
+             min = data;
+         	}
+            size++;
+        }
+        }
+            
+	}
+
+	int pop() {
+		// Implement the pop() function.
+        int x = -1;
+        if(top!=-1) {
+           if(arr[top] > min)
+               x = arr[top];
+            else {
+                int prevmini = min;
+                int val = 2*min - arr[top];
+                min = val;
+                x = prevmini;
+            }
+            top--;
+            size--;
+        }
+        return x;
+	}
+
+	int top() {
+		// Implement the top() function.
+        if(top!=-1) {
+        	if(arr[top] > min)
+           		 return arr[top];
+        	else 
+            	return min;
+        }
+        return -1;
+	}
+
+	boolean isEmpty() {
+		// Implement the isEmpty() function.
+        if(top == -1)
+            return true;
+        return false;
+	}
+
+	int getMin() {
+		// Implement the getMin() function.
+        if(isEmpty())
+            return -1;
+        
+        return min;
+	}
+}
