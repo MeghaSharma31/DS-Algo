@@ -1,0 +1,38 @@
+class Solution
+{
+    int search(int A[], int l, int h, int key)
+    {
+        int pivot = findMin(A);
+        int s = l;
+        int e = h;
+        if(A[pivot] == key)
+        return pivot;
+        if(key < A[0]) 
+        return binarySearch(A, pivot, h,key);
+        return binarySearch(A, l, pivot,key);
+    }
+    
+    public int findMin(int[] nums) {
+        int s = 0;
+        int e = nums.length - 1;
+        while(s<e) {
+            int mid = s+ (e-s)/2;
+            if(nums[mid] >= nums[0])
+            s = mid +1;
+            else e = mid;
+        }
+        return (nums[s] > nums[0]) ? 0 : s;
+    }
+    
+    public int binarySearch(int[] arr, int s, int e,int target) {
+        while(s<=e) {
+            int mid = s+ (e-s)/2;
+            if(arr[mid] == target)
+            return mid;
+            if(arr[mid] < target)
+            s = mid +1;
+            else e = mid -1;
+        }
+        return -1;
+    }
+}
