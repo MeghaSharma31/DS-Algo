@@ -1,0 +1,27 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] arr = new int[nums.length - k + 1];
+        int ansindex = 0;
+        //Deque for storing indexes 
+        Deque<Integer> dq = new LinkedList<Integer>();
+        
+        for(int i = 0;i<nums.length;i++) {
+            // remove all the elements out of range i.e., index in queue less than present index - windowsize
+            if(!dq.isEmpty() && dq.peek() <= i-k) {
+                dq.poll();
+            }
+// remove all smaller elements that are there in deque from last since they are useless
+// if nums[presentindex(i)] is the max element than elements before it are useless
+            while(!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
+                dq.pollLast();
+            }
+   // add present index         
+            dq.offer(i);
+    // window condition, window starts forming from k-1 so window condition is i>=k-1
+    // max element is element at the front of deque since we are storing in decreasing fashion
+            if(i>=k-1)
+                arr[ansindex++] = nums[dq.peek()];
+        }
+        return arr;
+    }
+}
