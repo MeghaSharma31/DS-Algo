@@ -1,0 +1,40 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        solveRecursively(board);
+    }
+    
+    public boolean solveRecursively(char[][] board) {
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                 // System.out.println("Inside loop");
+                  if(board[i][j] == '.'){ //If empty space
+                    for(char c = '1'; c <='9'; c++) {
+                        if(isValid(i,j,c,board)) {
+                            board[i][j] = c;
+                            if(solveRecursively(board))
+                                return true;
+                            else 
+                               board[i][j] = '.';                             
+                        }
+                    }
+                    return false; //inside the if empty space loop ans can either be true or after going through every character nothing fits then return false;
+                }
+
+            }
+        }
+        return true; // if no futher empty spaces are there after traversing the whole 9*9 box that means a solution has been obtained and hence return true
+    }
+    
+    public boolean isValid(int row, int column, char c, char[][] board) {
+     //   System.out.println("i " + row + "j " + column + "char c" + c); 
+        for(int i = 0;i < 9;i++) {
+            if(board[row][i] == c)
+                return false;
+            if(board[i][column] == c)
+                return false;
+            if(board[3*(row/3) + i/3][3*(column/3) + i%3] == c)
+                return false;
+        }
+        return true;
+    }
+}
