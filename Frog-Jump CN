@@ -1,0 +1,21 @@
+public class Solution {
+    public static int frogJump(int n, int heights[]) {
+
+        // Write your code here..
+        if(n==0 || n==1) return 0;
+        int[] dp = new int[n];
+		for(int i = n-2;i>=0;i--)
+        {	int b = 100000;
+       		int a = 100000;
+            if(i+2<n)
+               b = Math.abs(heights[i] - heights[i+2])+dp[i+2];
+         	a= Math.abs(heights[i]-heights[i+1])+dp[i+1];
+         	dp[i] = Math.min(a,b);
+                
+        }
+  		
+        return dp[0];
+    }
+    
+
+}
