@@ -1,0 +1,10 @@
+class Solution {
+    public int maximumProduct(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int res1 = nums[n-1]*nums[n-2]*nums[n-3];   // take product of three max numbers
+        int res2 = nums[0]*nums[1]*nums[n-1];       // take product of two minimum numbers and 1 max number( this will help in case of negative numbers)
+        return Math.max(res1,res2);                 // take max of these two in all cases
+        
+    }
+}
